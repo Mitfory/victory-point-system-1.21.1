@@ -1,0 +1,47 @@
+# Plugin made by XiaoJibaZhanshi
+# If you have any questions or shit breaks, DM me on discord: szym402pl
+
+# Placeholders:
+# Player's leaderboard position:
+# Player's victory points:
+# Player's title:
+
+# points-per-kill-list-override list functions in format "EntityType:Amount"
+# Refer to: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+# Default values: Player - 200, Passive mob - 10, Monster - 20, Wither/Dragon - 400, Warden: 500
+
+stats-command:
+  permission: "vpsystem.stats" # set to "none" to deactivate
+  gui-title: "&aStatistics"
+
+perks-are-cumulative: true
+
+points-per-kill-list-override: [] # Delete brackets if you want to override entity types
+# - "PLAYER:250"
+# - "WARDEN:600"
+
+levels:
+  1:
+    title: "&aScout"
+    points:
+      to-level-up: 300
+      on-death: 0
+    perks:
+      damage: 0.5
+      health: 0.5
+  1:
+    title: "&aSquire"
+    points:
+      to-level-up: 300
+      on-death: -25
+    perks:
+      damage: 0.5
+      health: 0.5
+  1:
+    title: "&aKnight"
+    points:
+      to-level-up: 300
+      on-death: -50
+    perks:
+      damage: 0.5
+      health: 0.5
