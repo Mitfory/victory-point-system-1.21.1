@@ -1,10 +1,8 @@
 package me.xiaojibazhanshi.victorypointsystem;
 
-import lombok.Getter;
 import me.xiaojibazhanshi.victorypointsystem.data.config.ConfigManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-@Getter
 public final class VPSystem extends JavaPlugin {
 
     private VPSystem instance;

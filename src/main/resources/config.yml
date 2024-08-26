@@ -14,7 +14,7 @@ stats-command:
   permission: "vpsystem.stats" # set to "none" to deactivate
   gui-title: "&aStatistics"
 
-perks-are-cumulative: true
+are-perks-cumulative: true
 
 points-per-kill-list-override: [] # Delete brackets if you want to override entity types
 # - "PLAYER:250"
