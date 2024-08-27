@@ -1,8 +1,8 @@
 package me.xiaojibazhanshi.victorypointsystem;
 
 import me.xiaojibazhanshi.victorypointsystem.commands.VPCommand;
+import me.xiaojibazhanshi.victorypointsystem.data.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
-import me.xiaojibazhanshi.victorypointsystem.data.config.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.listeners.DeathListener;
 import me.xiaojibazhanshi.victorypointsystem.listeners.KillListener;
 import me.xiaojibazhanshi.victorypointsystem.listeners.PlayerJoinListener;

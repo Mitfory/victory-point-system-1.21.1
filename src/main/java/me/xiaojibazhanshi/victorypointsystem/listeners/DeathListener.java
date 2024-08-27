@@ -1,7 +1,6 @@
 package me.xiaojibazhanshi.victorypointsystem.listeners;
 
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
-import me.xiaojibazhanshi.victorypointsystem.data.config.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.objects.Stats;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

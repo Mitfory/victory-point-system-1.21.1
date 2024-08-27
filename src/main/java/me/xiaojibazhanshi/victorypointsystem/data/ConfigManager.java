@@ -1,4 +1,4 @@
-package me.xiaojibazhanshi.victorypointsystem.data.config;
+package me.xiaojibazhanshi.victorypointsystem.data;
 
 import me.xiaojibazhanshi.victorypointsystem.VPSystem;
 import me.xiaojibazhanshi.victorypointsystem.objects.Level;

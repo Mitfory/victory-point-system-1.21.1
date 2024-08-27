@@ -10,7 +10,7 @@
 # Refer to: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
 # Default values: Player - 200, Passive mob - 10, Monster - 20, Wither/Dragon - 400, Warden: 500
 
-command:
+stats-command:
   permission: "vpsystem.stats" # set to "none" to deactivate
   gui-title: "&aStatistics"
 
@@ -21,7 +21,7 @@ points-per-kill-list-override: [] # Delete brackets if you want to override enti
 # - "WARDEN:600"
 # - "PIG:15"
 
-# NOTE: First level acts as a default
+# NOTE: First level is the default, don't remove it
 levels:
   1:
     title: "&aScout"

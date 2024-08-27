@@ -1,7 +1,7 @@
 package me.xiaojibazhanshi.victorypointsystem.listeners;
 
+import me.xiaojibazhanshi.victorypointsystem.data.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
-import me.xiaojibazhanshi.victorypointsystem.data.config.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.objects.Level;
 import me.xiaojibazhanshi.victorypointsystem.objects.Stats;
 import org.bukkit.entity.Entity;
@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -29,6 +30,8 @@ public class KillListener implements Listener {
     @EventHandler
     public void onPlayerKill(EntityDeathEvent event) {
         if (!(event.getEntity().getKiller() instanceof Player killer)) return;
+
+        /* DATA */
 
         Entity entity = event.getEntity();
         EntityType entityType = entity.getType();
@@ -49,7 +52,7 @@ public class KillListener implements Listener {
         stats.incrementAggressiveKills(isAggressiveNonPlayer);
         stats.incrementPassiveKills(isPassive);
 
-        /* POINTS */
+        /* POINTS AND NOTIFYING */
 
         boolean shouldOverridePoints = overrides.containsKey(entityType);
         int addedPoints = shouldOverridePoints ? overrides.get(entityType) : getDefaultPointsForKilling(entity);
@@ -59,23 +62,28 @@ public class KillListener implements Listener {
         boolean levelUp = updatedPoints >= pointsToLevelUp;
 
         if (levelUp) {
+            if (level.id() == configManager.getAllLevels().size()) return;
+
+            Level nextLevel = configManager.getAllLevels().get(level.id() + 1);
+            boolean arePerksCumulative = configManager.getArePerksCumulative();
+
+            List<Level> previousLevels = getPreviousLevels(configManager, nextLevel);
+            handleAttributeChange(killer, nextLevel, previousLevels, arePerksCumulative);
+
             stats.incrementLevel(true);
             updatedPoints -= pointsToLevelUp;
+
+            // notify here AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         }
 
         stats.setPoints(updatedPoints);
 
-        /* NOTIFICATION AREA */
-
-        if (levelUp) {
-            // notify via a title
-        }
-
-        // showcase the point difference via an actionbar
+        // notify here AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
         /* SAVING DATA */
 
         playerDataManager.savePlayerData();
     }
+
 
 }
