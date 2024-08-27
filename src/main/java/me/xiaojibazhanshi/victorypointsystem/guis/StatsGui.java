@@ -29,7 +29,7 @@ public class StatsGui extends StatsGuiHelper {
         int deaths = stats.getDeaths();
         int points = stats.getPoints();
 
-        GuiItem kdButton = getKDButton(player, kd);
+        GuiItem kdButton = getKDButton(main, player, kd);
 
         String guiName = color(guiTitle);
 
@@ -40,9 +40,9 @@ public class StatsGui extends StatsGuiHelper {
 
         gui.setDefaultClickAction(event -> event.setCancelled(true));
 
+        gui.setItem(2, 3, kdButton);
 
-
-        gui.getFiller().fill(ItemBuilder.from(Material.GRAY_STAINED_GLASS_PANE).asGuiItem());
+        gui.getFiller().fill(getBasicFiller());
         gui.open(player);
     }
 

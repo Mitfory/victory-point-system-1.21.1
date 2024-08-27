@@ -27,7 +27,7 @@ public class Stats {
     }
 
     public double getPlayerKD() {
-        return (double) playerKills / deaths;
+        return deaths != 0 ? (double) getAllKills() / deaths : getAllKills();
     }
 
     public int getDeaths() {

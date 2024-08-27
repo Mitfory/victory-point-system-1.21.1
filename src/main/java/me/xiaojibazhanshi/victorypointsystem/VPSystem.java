@@ -5,6 +5,7 @@ import me.xiaojibazhanshi.victorypointsystem.data.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
 import me.xiaojibazhanshi.victorypointsystem.listeners.DeathListener;
 import me.xiaojibazhanshi.victorypointsystem.listeners.KillListener;
+import me.xiaojibazhanshi.victorypointsystem.listeners.PlayerChatListener;
 import me.xiaojibazhanshi.victorypointsystem.listeners.PlayerJoinListener;
 import me.xiaojibazhanshi.victorypointsystem.runnables.ActionbarRunnable;
 import org.bukkit.Bukkit;
@@ -20,11 +21,12 @@ public final class VPSystem extends JavaPlugin {
         configManager = new ConfigManager(this);
         playerDataManager = new PlayerDataManager(this);
 
-        Bukkit.getPluginManager().registerEvents(new DeathListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         Bukkit.getPluginManager().registerEvents(new KillListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new DeathListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerChatListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
 
-        getCommand("victorypoints").setExecutor(new VPCommand());
+        getCommand("victorypoints").setExecutor(new VPCommand(this));
 
         ActionbarRunnable runnable = new ActionbarRunnable(this);
         runnable.start();

@@ -107,7 +107,14 @@ public class ConfigManager {
     public int getAllLvlUpPointsTilLevel(int level) {
         int points = 0;
 
+        for (Level lvl : availableLevels) {
+            if (lvl.id() == level) break;
 
+            int lvlPoints = lvl.pointsToLevelUp();
+            points += lvlPoints;
+        }
+
+        return points;
     }
 
     public Level getLevelById(int id) {

@@ -32,9 +32,10 @@ public class GeneralUtil {
             for (String line : lore) {
                 coloredLore.add(color(line));
             }
-
-            meta.setLore(coloredLore);
         }
+
+        meta.setLore(coloredLore);
+        item.setItemMeta(meta);
 
         return item;
     }
