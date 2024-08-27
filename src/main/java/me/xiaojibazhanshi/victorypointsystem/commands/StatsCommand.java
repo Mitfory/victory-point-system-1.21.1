@@ -7,10 +7,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class StatsCommand implements CommandExecutor {
 
+    public StatsCommand() {
+
+    }
+
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-        // TBI
+
 
         return true;
     }

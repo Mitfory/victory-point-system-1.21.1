@@ -19,7 +19,9 @@ are-perks-cumulative: true
 points-per-kill-list-override: [] # Delete brackets if you want to override entity types
 # - "PLAYER:250"
 # - "WARDEN:600"
+# - "PIG:15"
 
+# NOTE: First level acts as a default
 levels:
   1:
     title: "&aScout"

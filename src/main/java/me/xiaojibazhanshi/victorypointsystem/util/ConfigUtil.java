@@ -1,4 +1,4 @@
-package me.xiaojibazhanshi.victorypointsystem.data.config;
+package me.xiaojibazhanshi.victorypointsystem.util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;

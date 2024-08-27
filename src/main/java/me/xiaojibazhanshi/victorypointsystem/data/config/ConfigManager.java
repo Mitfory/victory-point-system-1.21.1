@@ -2,19 +2,18 @@ package me.xiaojibazhanshi.victorypointsystem.data.config;
 
 import me.xiaojibazhanshi.victorypointsystem.VPSystem;
 import me.xiaojibazhanshi.victorypointsystem.objects.Level;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 
 import java.util.*;
 
-import static me.xiaojibazhanshi.victorypointsystem.data.config.ConfigUtil.nullCheck;
+import static me.xiaojibazhanshi.victorypointsystem.util.ConfigUtil.nullCheck;
 import static me.xiaojibazhanshi.victorypointsystem.util.GeneralUtil.color;
 
 public class ConfigManager {
 
-    private final FileConfiguration config;
+    private FileConfiguration config;
 
     private String statsCmdPermission;
     private String statsGuiTitle;
@@ -28,6 +27,14 @@ public class ConfigManager {
     public ConfigManager(VPSystem main) {
         main.saveDefaultConfig();
         main.getConfig().options().copyDefaults(true);
+
+        config = main.getConfig();
+
+        initializeVariables();
+    }
+
+    public void reload(VPSystem main) {
+        main.reloadConfig();
 
         config = main.getConfig();
 
