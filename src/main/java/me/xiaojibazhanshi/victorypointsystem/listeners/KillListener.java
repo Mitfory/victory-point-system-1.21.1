@@ -5,13 +5,17 @@ import me.xiaojibazhanshi.victorypointsystem.data.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
 import me.xiaojibazhanshi.victorypointsystem.objects.Level;
 import me.xiaojibazhanshi.victorypointsystem.objects.Stats;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.util.Vector;
 
 import java.util.List;
 import java.util.Map;
@@ -24,8 +28,10 @@ public class KillListener implements Listener {
 
     private final PlayerDataManager playerDataManager;
     private final ConfigManager configManager;
+    private final VPSystem main;
 
     public KillListener(VPSystem main) {
+        this.main = main;
         this.playerDataManager = main.getPlayerDataManager();
         this.configManager = main.getConfigManager();
     }
@@ -64,21 +70,27 @@ public class KillListener implements Listener {
         int pointsToLevelUp = level.pointsToLevelUp();
         boolean levelUp = updatedPoints >= pointsToLevelUp;
 
+        stats.setPoints(updatedPoints);
+
         if (levelUp) {
             if (level.id() == configManager.getAllLevels().size()) return;
+            Level nextLevel;
 
-            Level nextLevel = configManager.getAllLevels().get(level.id() + 1);
-            boolean arePerksCumulative = configManager.getArePerksCumulative();
+            do {
+                nextLevel = configManager.getAllLevels().get(level.id());
+                boolean arePerksCumulative = configManager.getArePerksCumulative();
 
-            List<Level> previousLevels = getPreviousLevels(configManager, nextLevel);
-            handleAttributeChange(killer, nextLevel, previousLevels, arePerksCumulative);
+                List<Level> previousLevels = getPreviousLevels(configManager, nextLevel);
+                handleAttributeChange(killer, nextLevel, previousLevels, arePerksCumulative);
 
-            stats.incrementLevel(true);
-            updatedPoints -= pointsToLevelUp;
+                stats.incrementLevel(true);
+                updatedPoints -= pointsToLevelUp;
+            } while (updatedPoints >= pointsToLevelUp);
 
-            killer.sendTitle(color("&aYou've levelled up to"),
-                             color(level.title() + "&a!"),
-                                   5, 25, 5);
+            killer.sendTitle(color(nextLevel.title()),
+                    color( "&7is your new title!"),
+                    5, 25, 5);
+
             killer.playSound(killer, Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
         }
 
@@ -87,6 +99,14 @@ public class KillListener implements Listener {
         /* SAVING DATA */
 
         playerDataManager.savePlayerData();
+
+        /* VISUAL EFFECT (FLOATING +XX POINTS) */
+
+        Location topOfTheHead = entity.getLocation().add(0, entity.getHeight(), 0);
+
+        ArmorStand pointHologram = generateHologram(topOfTheHead, color("&a&l+" + addedPoints));
+
+        Bukkit.getScheduler().runTaskLater(main, pointHologram::remove, 30);
     }
 
 

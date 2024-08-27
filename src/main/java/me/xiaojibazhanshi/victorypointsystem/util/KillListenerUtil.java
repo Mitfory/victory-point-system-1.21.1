@@ -2,11 +2,15 @@ package me.xiaojibazhanshi.victorypointsystem.util;
 
 import me.xiaojibazhanshi.victorypointsystem.data.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.objects.Level;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.*;
 
 import java.util.List;
+
+import static me.xiaojibazhanshi.victorypointsystem.util.GeneralUtil.color;
 
 public class KillListenerUtil {
 
@@ -60,6 +64,23 @@ public class KillListenerUtil {
                 .stream()
                 .filter(level -> level.id() < previousTo.id())
                 .toList();
+    }
+
+    public static ArmorStand generateHologram(Location location, String name) {
+        World world = location.getWorld();
+        assert world != null;
+
+        ArmorStand armorStand = (ArmorStand) world.spawnEntity(location, EntityType.ARMOR_STAND);
+
+        armorStand.setVisible(false);
+        armorStand.setCustomName(color(name));
+        armorStand.setCustomNameVisible(true);
+        armorStand.setGravity(false);
+        armorStand.setBasePlate(false);
+        armorStand.setArms(false);
+        armorStand.setMarker(true);
+
+        return armorStand;
     }
 
 }

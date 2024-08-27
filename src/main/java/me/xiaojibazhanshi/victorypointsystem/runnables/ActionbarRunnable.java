@@ -9,7 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import static me.xiaojibazhanshi.victorypointsystem.util.RunnableHelper.*;
+import static me.xiaojibazhanshi.victorypointsystem.util.RunnableHelper.showProgressBar;
 
 public class ActionbarRunnable extends BukkitRunnable {
 
@@ -31,7 +31,7 @@ public class ActionbarRunnable extends BukkitRunnable {
             Stats stats = playerDataManager.getStatsByUUID(player.getUniqueId());
             Level currentLevel = configManager.getLevelById(stats.getLevel());
 
-            showRegularProgressBar(player, stats, currentLevel);
+            showProgressBar(player, stats, currentLevel, configManager);
         }
     }
 
