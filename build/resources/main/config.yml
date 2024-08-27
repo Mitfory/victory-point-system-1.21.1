@@ -2,9 +2,9 @@
 # If you have any questions or shit breaks, DM me on discord: szym402pl
 
 # Placeholders:
-# Player's leaderboard position:
-# Player's victory points:
-# Player's title:
+# Format is %stats_top_X_SORTMETHOD%;
+# Top 10 positions, can be sorted by: kd, points, all_kills, player_kills
+# so let's say you wanted to get top 7 kill position, you'd do %stats_top_7_all_kills%
 
 # points-per-kill-list-override list functions in format "EntityType:Amount"
 # Refer to: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
@@ -12,7 +12,7 @@
 
 stats-command:
   permission: "vpsystem.stats" # set to "none" to deactivate
-  gui-title: "&aStatistics"
+  gui-title: "&7Statistics"
 
 are-perks-cumulative: true
 

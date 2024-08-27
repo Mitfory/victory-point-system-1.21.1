@@ -31,13 +31,15 @@ public class PlayerChatUtil {
         int currentPoints = playerStats.getPoints();
         int level = playerStats.getLevel();
 
-        int pointsTilPlayersLevel = configManager.getAllLvlUpPointsTilLevel(level);
+        int pointsTilPlayersLevel = configManager.getAllLvlUpPointsTilLevel(level, true);
         int overallPoints = currentPoints + pointsTilPlayersLevel;
 
         DecimalFormat df = new DecimalFormat("0.00");
         String kdr = df.format(kdRatio);
 
         return text
+                .replace("%my_level%",
+                        color("&7[&6" + playerName + "&7's &alevel&7: &b" + level + "&7]"))
                 .replace("%my_kd%",
                        color("&7[&6" + playerName + "&7's &aK/D ratio&7: &b" + kdr + "&7]"))
                 .replace("%my_kills%",

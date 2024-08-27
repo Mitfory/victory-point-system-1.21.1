@@ -22,6 +22,7 @@ public class StatsGuiHelper {
     }
 
     protected GuiItem getKDButton(VPSystem main, Player player, double kdRatio) {
+
         DecimalFormat df = new DecimalFormat("0.00");
         String kdr = df.format(kdRatio);
 
@@ -38,6 +39,149 @@ public class StatsGuiHelper {
 
         GuiItem guiItem = ItemBuilder.from(item).asGuiItem(event -> {
             String targetText = "%my_kd%";
+            String finalText = replaceStatPlaceholders(main, targetText, player);
+
+            player.closeInventory();
+            player.chat(finalText);
+        });
+
+        return guiItem;
+    }
+
+    protected GuiItem getLevelButton(VPSystem main, Player player, int level) {
+
+        Material material = Material.EXPERIENCE_BOTTLE;
+        String name = "&6&lLevel";
+        List<String> lore = new ArrayList<>(List.of(
+                "",
+                "&7&lYour &a&lLevel &7&lis &b&l" + level,
+                "",
+                "&7&oClick me to show it off on the chat!"
+        ));
+
+        ItemStack item = createItem(material, name, lore);
+
+        GuiItem guiItem = ItemBuilder.from(item).asGuiItem(event -> {
+            String targetText = "%my_level%";
+            String finalText = replaceStatPlaceholders(main, targetText, player);
+
+            player.closeInventory();
+            player.chat(finalText);
+        });
+
+        return guiItem;
+    }
+
+    protected GuiItem getAllKillsButton(VPSystem main, Player player, int kills) {
+
+        Material material = Material.IRON_SWORD;
+        String name = "&6&lAll Kills";
+        List<String> lore = new ArrayList<>(List.of(
+                "",
+                "&7&lYour &a&lkill &7&lcount is &b&l" + kills,
+                "",
+                "&7&oClick me to show it off on the chat!"
+        ));
+
+        ItemStack item = createItem(material, name, lore);
+
+        GuiItem guiItem = ItemBuilder.from(item).asGuiItem(event -> {
+            String targetText = "%my_kills%";
+            String finalText = replaceStatPlaceholders(main, targetText, player);
+
+            player.closeInventory();
+            player.chat(finalText);
+        });
+
+        return guiItem;
+    }
+
+    protected GuiItem getPassiveKillsButton(VPSystem main, Player player, int kills) {
+
+        Material material = Material.FEATHER;
+        String name = "&6&lPassive Mob Kills";
+        List<String> lore = new ArrayList<>(List.of(
+                "",
+                "&7&lYour &a&lPassive Mob Kill &7&lcount is &b&l" + kills,
+                "",
+                "&7&oClick me to show it off on the chat!"
+        ));
+
+        ItemStack item = createItem(material, name, lore);
+
+        GuiItem guiItem = ItemBuilder.from(item).asGuiItem(event -> {
+            String targetText = "%my_passive_kills%";
+            String finalText = replaceStatPlaceholders(main, targetText, player);
+
+            player.closeInventory();
+            player.chat(finalText);
+        });
+
+        return guiItem;
+    }
+    protected GuiItem getAggressiveKillsButton(VPSystem main, Player player, int kills) {
+
+        Material material = Material.BLAZE_ROD;
+        String name = "&6&lAggressive Mob Kills";
+        List<String> lore = new ArrayList<>(List.of(
+                "",
+                "&7&lYour &a&lAggressive Mob Kill &7&lcount is &b&l" + kills,
+                "",
+                "&7&oClick me to show it off on the chat!"
+        ));
+
+        ItemStack item = createItem(material, name, lore);
+
+        GuiItem guiItem = ItemBuilder.from(item).asGuiItem(event -> {
+            String targetText = "%my_aggressive_kills%";
+            String finalText = replaceStatPlaceholders(main, targetText, player);
+
+            player.closeInventory();
+            player.chat(finalText);
+        });
+
+        return guiItem;
+    }
+
+    protected GuiItem getDeathsButton(VPSystem main, Player player, int deaths) {
+
+        Material material = Material.SKELETON_SKULL;
+        String name = "&6&lDeaths";
+        List<String> lore = new ArrayList<>(List.of(
+                "",
+                "&7&lYour &a&ldeath &7&lcount is &b&l" + deaths,
+                "",
+                "&7&oClick me to show it off on the chat!"
+        ));
+
+        ItemStack item = createItem(material, name, lore);
+
+        GuiItem guiItem = ItemBuilder.from(item).asGuiItem(event -> {
+            String targetText = "%my_deaths%";
+            String finalText = replaceStatPlaceholders(main, targetText, player);
+
+            player.closeInventory();
+            player.chat(finalText);
+        });
+
+        return guiItem;
+    }
+
+    protected GuiItem getPointsButton(VPSystem main, Player player, int points) {
+
+        Material material = Material.EMERALD;
+        String name = "&6&lPoints";
+        List<String> lore = new ArrayList<>(List.of(
+                "",
+                "&7&lYour &a&lgathered point &7&lcount is &b&l" + points,
+                "",
+                "&7&oClick me to show it off on the chat!"
+        ));
+
+        ItemStack item = createItem(material, name, lore);
+
+        GuiItem guiItem = ItemBuilder.from(item).asGuiItem(event -> {
+            String targetText = "%my_points%";
             String finalText = replaceStatPlaceholders(main, targetText, player);
 
             player.closeInventory();
