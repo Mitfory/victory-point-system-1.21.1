@@ -1,5 +1,6 @@
 package me.xiaojibazhanshi.victorypointsystem.listeners;
 
+import me.xiaojibazhanshi.victorypointsystem.VPSystem;
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,8 +13,8 @@ public class PlayerJoinListener implements Listener {
 
     private final PlayerDataManager playerDataManager;
 
-    public PlayerJoinListener(PlayerDataManager playerDataManager) {
-        this.playerDataManager = playerDataManager;
+    public PlayerJoinListener(VPSystem main) {
+        this.playerDataManager = main.getPlayerDataManager();
     }
 
     @EventHandler
@@ -22,7 +23,6 @@ public class PlayerJoinListener implements Listener {
         UUID uuid = player.getUniqueId();
 
         playerDataManager.addPlayerIfAbsent(uuid);
-        playerDataManager.savePlayerData();
     }
 
 }

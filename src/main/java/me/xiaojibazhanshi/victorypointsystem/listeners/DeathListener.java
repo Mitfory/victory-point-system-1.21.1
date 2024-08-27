@@ -1,5 +1,6 @@
 package me.xiaojibazhanshi.victorypointsystem.listeners;
 
+import me.xiaojibazhanshi.victorypointsystem.VPSystem;
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
 import me.xiaojibazhanshi.victorypointsystem.objects.Stats;
 import org.bukkit.entity.Player;
@@ -13,8 +14,8 @@ public class DeathListener implements Listener {
 
     private final PlayerDataManager playerDataManager;
 
-    public DeathListener(PlayerDataManager playerDataManager) {
-        this.playerDataManager = playerDataManager;
+    public DeathListener(VPSystem main) {
+        this.playerDataManager = main.getPlayerDataManager();
     }
 
     @EventHandler

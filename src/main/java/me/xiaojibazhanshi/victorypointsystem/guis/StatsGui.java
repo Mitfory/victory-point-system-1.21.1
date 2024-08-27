@@ -27,7 +27,7 @@ public class StatsGui {
                 .title(Component.text(guiName))
                 .create();
 
-        // further impl
+        // further implementation
     }
 
 }

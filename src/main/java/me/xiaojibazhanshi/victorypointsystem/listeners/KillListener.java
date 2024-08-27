@@ -1,9 +1,11 @@
 package me.xiaojibazhanshi.victorypointsystem.listeners;
 
+import me.xiaojibazhanshi.victorypointsystem.VPSystem;
 import me.xiaojibazhanshi.victorypointsystem.data.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
 import me.xiaojibazhanshi.victorypointsystem.objects.Level;
 import me.xiaojibazhanshi.victorypointsystem.objects.Stats;
+import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static me.xiaojibazhanshi.victorypointsystem.util.GeneralUtil.color;
 import static me.xiaojibazhanshi.victorypointsystem.util.KillListenerUtil.*;
 
 public class KillListener implements Listener {
@@ -22,9 +25,9 @@ public class KillListener implements Listener {
     private final PlayerDataManager playerDataManager;
     private final ConfigManager configManager;
 
-    public KillListener(PlayerDataManager playerDataManager, ConfigManager configManager) {
-        this.playerDataManager = playerDataManager;
-        this.configManager = configManager;
+    public KillListener(VPSystem main) {
+        this.playerDataManager = main.getPlayerDataManager();
+        this.configManager = main.getConfigManager();
     }
 
     @EventHandler
@@ -73,12 +76,13 @@ public class KillListener implements Listener {
             stats.incrementLevel(true);
             updatedPoints -= pointsToLevelUp;
 
-            // notify here AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+            killer.sendTitle(color("&aYou've levelled up to"),
+                             color(level.title() + "&a!"),
+                                   5, 25, 5);
+            killer.playSound(killer, Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
         }
 
         stats.setPoints(updatedPoints);
-
-        // notify here AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 
         /* SAVING DATA */
 
