@@ -11,20 +11,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class VPSystem extends JavaPlugin {
 
-    private VPSystem instance;
     private ConfigManager configManager;
     private PlayerDataManager playerDataManager;
 
     @Override
     public void onEnable() {
-        instance = this;
+        configManager = new ConfigManager(this);
+        playerDataManager = new PlayerDataManager(this);
 
-        configManager = new ConfigManager(instance);
-        playerDataManager = new PlayerDataManager(instance);
-
-        Bukkit.getPluginManager().registerEvents(new DeathListener(playerDataManager), instance);
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(playerDataManager), instance);
-        Bukkit.getPluginManager().registerEvents(new KillListener(playerDataManager, configManager), instance);
+        Bukkit.getPluginManager().registerEvents(new DeathListener(playerDataManager), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(playerDataManager), this);
+        Bukkit.getPluginManager().registerEvents(new KillListener(playerDataManager, configManager), this);
 
         getCommand("victorypoints").setExecutor(new VPCommand());
     }
@@ -32,10 +29,6 @@ public final class VPSystem extends JavaPlugin {
     @Override
     public void onDisable() {
         playerDataManager.savePlayerData(); // failsafe
-    }
-
-    public VPSystem getInstance() {
-        return instance;
     }
 
     public ConfigManager getConfigManager() {
