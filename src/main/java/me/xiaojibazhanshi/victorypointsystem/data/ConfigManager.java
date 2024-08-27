@@ -104,6 +104,12 @@ public class ConfigManager {
         return levels;
     }
 
+    public int getAllLvlUpPointsTilLevel(int level) {
+        int points = 0;
+
+
+    }
+
     public Level getLevelById(int id) {
         return availableLevels.get(id - 1);
     }
