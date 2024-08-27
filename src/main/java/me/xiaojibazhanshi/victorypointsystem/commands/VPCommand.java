@@ -5,14 +5,15 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-public class StatsCommand implements CommandExecutor {
+public class VPCommand implements CommandExecutor {
 
-    public StatsCommand() {
+    public VPCommand() {
 
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+
 
 
         return true;

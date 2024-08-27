@@ -10,7 +10,7 @@
 # Refer to: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
 # Default values: Player - 200, Passive mob - 10, Monster - 20, Wither/Dragon - 400, Warden: 500
 
-command:
+stats-command:
   permission: "vpsystem.stats" # set to "none" to deactivate
   gui-title: "&aStatistics"
 

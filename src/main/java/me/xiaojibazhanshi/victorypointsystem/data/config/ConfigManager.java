@@ -84,16 +84,19 @@ public class ConfigManager {
 
         ConfigurationSection levelSection = nullCheck(config, "levels", ConfigurationSection.class, null);
         if (levelSection == null) return levels;
+        String path = "levels.";
 
-        for (String path : levelSection.getKeys(true)) {
-            int id = Integer.parseInt((path.split("."))[1]); // example: levels.12 -> gets 12
-            String title = nullCheck(config, path + ".title", String.class, "");
+        for (String level : levelSection.getKeys(false)) {
+            String pathCopy = path + level;
 
-            int pointsToLvlUp = nullCheck(config, path + ".points.to-level-up", Integer.class, 0);
-            int pointsOnDeath = nullCheck(config, path + ".points.on-death", Integer.class, 0);
+            int id = Integer.parseInt(level); // example: levels.12 -> gets 12
+            String title = nullCheck(config, pathCopy + ".title", String.class, "");
 
-            double dmgPerk = nullCheck(config, path + ".perks.damage", Double.class, 0.0);
-            double hpPerk = nullCheck(config, path + ".perks.health", Double.class, 0.0);
+            int pointsToLvlUp = nullCheck(config, pathCopy + ".points.to-level-up", Integer.class, 0);
+            int pointsOnDeath = nullCheck(config, pathCopy + ".points.on-death", Integer.class, 0);
+
+            double dmgPerk = nullCheck(config, pathCopy + ".perks.damage", Double.class, 0.0);
+            double hpPerk = nullCheck(config, pathCopy + ".perks.health", Double.class, 0.0);
 
             levels.add(new Level(id, title, pointsToLvlUp, pointsOnDeath, dmgPerk, hpPerk));
         }

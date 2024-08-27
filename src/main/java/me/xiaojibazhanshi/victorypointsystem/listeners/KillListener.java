@@ -39,26 +39,43 @@ public class KillListener implements Listener {
         Stats stats = playerDataManager.getStatsByUUID(killerUUID);
         Level level = configManager.getLevelById(stats.getLevel());
 
-        boolean isPassiveKill = isPassive(entity);
+        /* KILLS */
+
+        boolean isPassive = isPassive(entity);
         boolean isPlayerKill = entity instanceof Player;
         boolean isAggressiveNonPlayer = isAggressiveAndNonPlayer(entity);
+
+        stats.incrementPlayerKills(isPlayerKill);
+        stats.incrementAggressiveKills(isAggressiveNonPlayer);
+        stats.incrementPassiveKills(isPassive);
+
+        /* POINTS */
+
         boolean shouldOverridePoints = overrides.containsKey(entityType);
         int addedPoints = shouldOverridePoints ? overrides.get(entityType) : getDefaultPointsForKilling(entity);
 
         int updatedPoints = stats.getPoints() + addedPoints;
-        int pointsToLvlUp = level.pointsToLvlUp();
+        int pointsToLevelUp = level.pointsToLevelUp();
+        boolean levelUp = updatedPoints >= pointsToLevelUp;
 
-        if (updatedPoints > pointsToLvlUp) {
-            // notify the player
-
-            stats.setLevel(stats.getLevel() + 1);
-            updatedPoints -= pointsToLvlUp;
+        if (levelUp) {
+            stats.incrementLevel(true);
+            updatedPoints -= pointsToLevelUp;
         }
 
-        stats.setPlayerKills(isPlayerKill ? stats.getPlayerKills() + 1 : stats.getPlayerKills());
-        stats.setAggressiveKills();
+        stats.setPoints(updatedPoints);
 
+        /* NOTIFICATION AREA */
 
+        if (levelUp) {
+            // notify via a title
+        }
+
+        // showcase the point difference via an actionbar
+
+        /* SAVING DATA */
+
+        playerDataManager.savePlayerData();
     }
 
 }

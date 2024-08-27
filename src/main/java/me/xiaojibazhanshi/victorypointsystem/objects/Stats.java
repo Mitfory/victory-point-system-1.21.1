@@ -22,8 +22,8 @@ public class Stats {
         return level;
     }
 
-    public void setLevel(int level) {
-        this.level = level;
+    public void incrementLevel(boolean increment) {
+        this.level = increment ? level + 1 : level;
     }
 
     public double getPlayerKD() {
@@ -34,16 +34,16 @@ public class Stats {
         return deaths;
     }
 
-    public void setDeaths(int deaths) {
-        this.deaths = deaths;
+    public void incrementDeaths(boolean increment) {
+        this.deaths = increment ? deaths + 1 : deaths;
     }
 
     public int getAggressiveKills() {
         return aggressiveKills;
     }
 
-    public void setAggressiveKills(int aggressiveKills) {
-        this.aggressiveKills = aggressiveKills;
+    public void incrementAggressiveKills(boolean increment) {
+        this.aggressiveKills = increment ? aggressiveKills + 1 : aggressiveKills;
     }
 
     public int getAllKills() {
@@ -54,16 +54,16 @@ public class Stats {
         return passiveKills;
     }
 
-    public void setPassiveKills(int passiveKills) {
-        this.passiveKills = passiveKills;
+    public void incrementPassiveKills(boolean increment) {
+        this.passiveKills = increment ? passiveKills + 1 : passiveKills;
     }
 
     public int getPlayerKills() {
         return playerKills;
     }
 
-    public void setPlayerKills(int playerKills) {
-        this.playerKills = playerKills;
+    public void incrementPlayerKills(boolean increment) {
+        this.playerKills = increment ? playerKills + 1 : playerKills;
     }
 
     public int getPoints() {

@@ -22,6 +22,7 @@ public class PlayerJoinListener implements Listener {
         UUID uuid = player.getUniqueId();
 
         playerDataManager.addPlayerIfAbsent(uuid);
+        playerDataManager.savePlayerData();
     }
 
 }
