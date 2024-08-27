@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import me.xiaojibazhanshi.victorypointsystem.VPSystem;
-import me.xiaojibazhanshi.victorypointsystem.objects.Level;
+import me.xiaojibazhanshi.victorypointsystem.objects.Stats;
 import org.bukkit.Bukkit;
 
 import java.io.File;
@@ -12,17 +12,20 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public class PlayerDataManager {
 
-    private final Map<UUID, Level> playerData = new HashMap<>();
+    private final Map<UUID, Stats> playerData = new HashMap<>();
     private final File dataFile;
     private final Gson gson;
 
     public PlayerDataManager(VPSystem main) {
         this.gson = new GsonBuilder().setPrettyPrinting().create();
-        this.dataFile = new File(main.getDataFolder(), "playerData.json");
+        this.dataFile = new File(main.getDataFolder(), "playerdata.json");
 
         loadPlayerData();
     }
@@ -45,8 +48,9 @@ public class PlayerDataManager {
         }
 
         try (FileReader reader = new FileReader(dataFile)) {
-            Type mapType = new TypeToken<Map<UUID, Level>>() {}.getType();
-            Map<UUID, Level> loadedData = gson.fromJson(reader, mapType);
+            Type mapType = new TypeToken<Map<UUID, Stats>>() {
+            }.getType();
+            Map<UUID, Stats> loadedData = gson.fromJson(reader, mapType);
 
             if (loadedData != null) {
                 playerData.clear();
@@ -65,15 +69,17 @@ public class PlayerDataManager {
         return dataFile.exists() && dataFile.canRead();
     }
 
-    public Level getLevelByUUID(UUID uuid) {
+    public Stats getStatsByUUID(UUID uuid) {
         return playerData.get(uuid);
     }
 
-    public void setLevel(UUID uuid, Level level) {
-        playerData.put(uuid, level);
+    public void resetStats(UUID uuid) {
+        playerData.remove(uuid);
+        playerData.put(uuid, new Stats(1, 0, 0, 0, 0, 0));
     }
 
-    public void removePlayer(UUID uuid) {
-        playerData.remove(uuid);
+    public void addPlayerIfAbsent(UUID uuid) {
+        playerData.computeIfAbsent
+                (uuid, id -> new Stats(1, 0, 0, 0, 0, 0));
     }
 }

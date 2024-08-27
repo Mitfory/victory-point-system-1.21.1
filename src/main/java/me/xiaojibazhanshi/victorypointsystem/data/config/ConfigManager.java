@@ -69,7 +69,7 @@ public class ConfigManager {
 
             try {
                 points = Integer.parseInt(unmapped[1]);
-            } catch(NumberFormatException nfe) {
+            } catch (NumberFormatException nfe) {
                 points = 10; // default value - points for killing passive mobs
             }
 
@@ -102,7 +102,7 @@ public class ConfigManager {
     }
 
     public Level getLevelById(int id) {
-        return availableLevels.get(id -1);
+        return availableLevels.get(id - 1);
     }
 
     public Boolean getArePerksCumulative() {
@@ -124,7 +124,6 @@ public class ConfigManager {
     public List<Level> getAllLevels() {
         return availableLevels;
     }
-
 
 
 }

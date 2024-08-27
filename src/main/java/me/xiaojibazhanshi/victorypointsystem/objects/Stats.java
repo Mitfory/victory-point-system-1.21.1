@@ -2,21 +2,28 @@ package me.xiaojibazhanshi.victorypointsystem.objects;
 
 public class Stats {
 
+    private int level;
     private int points;
     private int playerKills;
     private int deaths;
     private int passiveKills;
     private int aggressiveKills;
-    private int allKills;
 
-    public Stats(int points, int playerKills, int deaths, int passiveKills, int aggressiveKills) {
+    public Stats(int level, int points, int playerKills, int deaths, int passiveKills, int aggressiveKills) {
+        this.level = level;
         this.points = points;
         this.playerKills = playerKills;
         this.deaths = deaths;
         this.passiveKills = passiveKills;
         this.aggressiveKills = aggressiveKills;
+    }
 
-        this.allKills = playerKills + passiveKills + aggressiveKills;
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 
     public double getPlayerKD() {
@@ -40,11 +47,7 @@ public class Stats {
     }
 
     public int getAllKills() {
-        return allKills;
-    }
-
-    public void setAllKills(int allKills) {
-        this.allKills = allKills;
+        return playerKills + passiveKills + aggressiveKills;
     }
 
     public int getPassiveKills() {

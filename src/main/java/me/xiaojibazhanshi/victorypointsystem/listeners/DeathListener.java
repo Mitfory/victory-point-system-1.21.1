@@ -6,6 +6,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 
 public class DeathListener implements Listener {
 
+
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
 

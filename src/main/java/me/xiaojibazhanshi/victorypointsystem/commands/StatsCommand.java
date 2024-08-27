@@ -15,7 +15,6 @@ public class StatsCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
 
-
         return true;
     }
 }
