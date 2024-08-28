@@ -22,6 +22,10 @@ public class Stats {
         return level;
     }
 
+    public void decrementLevel(boolean decrement) {
+        this.level = decrement ? level - 1 : level;
+    }
+
     public void incrementLevel(boolean increment) {
         this.level = increment ? level + 1 : level;
     }

@@ -30,6 +30,7 @@ public class PlayerChatUtil {
         int deaths = playerStats.getDeaths();
         int currentPoints = playerStats.getPoints();
         int level = playerStats.getLevel();
+        int playerKills = playerStats.getPlayerKills();
 
         int pointsTilPlayersLevel = configManager.getAllLvlUpPointsTilLevel(level, true);
         int overallPoints = currentPoints + pointsTilPlayersLevel;
@@ -38,16 +39,18 @@ public class PlayerChatUtil {
         String kdr = df.format(kdRatio);
 
         return text
+                .replace("%my_player_kills%",
+                        color("&7[&6" + playerName + "&7's &aplayer kills&7: &b" + playerKills + "&7]"))
                 .replace("%my_level%",
                         color("&7[&6" + playerName + "&7's &alevel&7: &b" + level + "&7]"))
                 .replace("%my_kd%",
-                       color("&7[&6" + playerName + "&7's &aK/D ratio&7: &b" + kdr + "&7]"))
+                       color("&7[&6" + playerName + "&7's &ak/d ratio&7: &b" + kdr + "&7]"))
                 .replace("%my_kills%",
-                       color("&7[&6" + playerName + "&7's &akills&7: &b" + allKills + "&7]"))
+                       color("&7[&6" + playerName + "&7's &aoverall kills&7: &b" + allKills + "&7]"))
                 .replace("%my_passive_kills%",
                        color("&7[&6" + playerName + "&7's &apassive mob kills&7: &b" + passiveKills + "&7]"))
                 .replace("%my_aggressive_kills%",
-                       color("&7[&6" + playerName + "&7's &a8aggressive mob kills&7: &b" + aggressiveKills + "&7]"))
+                       color("&7[&6" + playerName + "&7's &aaggressive mob kills&7: &b" + aggressiveKills + "&7]"))
                 .replace("%my_deaths%",
                        color("&7[&6" + playerName + "&7's &adeaths&7: &b" + deaths + "&7]"))
                 .replace("%my_points%",

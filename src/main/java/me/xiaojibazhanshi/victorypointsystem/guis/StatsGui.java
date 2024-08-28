@@ -30,34 +30,34 @@ public class StatsGui extends StatsGuiHelper {
         int deaths = stats.getDeaths();
         int levelPoints = configManager.getAllLvlUpPointsTilLevel(level, true);
         int allPoints = stats.getPoints() + levelPoints;
+        int playerKills = stats.getPlayerKills();
 
         GuiItem kdButton = getKDButton(main, player, kd);
         GuiItem levelButton = getLevelButton(main, player, level);
         GuiItem allKillsButton = getAllKillsButton(main, player, allKills);
         GuiItem passiveKillsButton = getPassiveKillsButton(main, player, passiveKills);
         GuiItem aggressiveKillsButton = getAggressiveKillsButton(main, player, aggressiveKills);
+        GuiItem playerKillsButton = getPlayerKillsButton(main, player, playerKills);
         GuiItem deathsButton = getDeathsButton(main, player, deaths);
         GuiItem pointsButton = getPointsButton(main, player, allPoints);
 
         String guiName = color(guiTitle);
 
         Gui gui = Gui.gui()
-                .rows(3)
+                .rows(5)
                 .title(Component.text(guiName))
                 .create();
 
         gui.setDefaultClickAction(event -> event.setCancelled(true));
 
-        gui.setItem(2, 1, levelButton);
-
-        gui.setItem(2, 3, kdButton);
+        gui.setItem(2, 2, levelButton);
         gui.setItem(2, 4, allKillsButton);
-        gui.setItem(2, 5, passiveKillsButton);
-        gui.setItem(2, 6, aggressiveKillsButton);
-        gui.setItem(2, 7, deathsButton);
-
-        gui.setItem(2, 9, pointsButton);
-
+        gui.setItem(2, 6, kdButton);
+        gui.setItem(2, 8, playerKillsButton);
+        gui.setItem(4, 2, passiveKillsButton);
+        gui.setItem(4, 4, aggressiveKillsButton);
+        gui.setItem(4, 6, deathsButton);
+        gui.setItem(4, 8, pointsButton);
 
         gui.getFiller().fill(getBasicFiller());
         gui.open(player);

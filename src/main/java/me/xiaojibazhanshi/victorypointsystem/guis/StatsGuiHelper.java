@@ -26,13 +26,13 @@ public class StatsGuiHelper {
         DecimalFormat df = new DecimalFormat("0.00");
         String kdr = df.format(kdRatio);
 
-        Material material = Material.DIAMOND;
+        Material material = Material.NETHER_STAR;
         String name = "&6&lK/D Ratio";
         List<String> lore = new ArrayList<>(List.of(
                 "",
                 "&7&lYour &a&lK/D Ratio &7&lis &b&l" + kdr,
                 "",
-                "&7&oClick me to show it off on the chat!"
+                "&7&oClick me to show it off in the chat!"
         ));
 
         ItemStack item = createItem(material, name, lore);
@@ -48,21 +48,21 @@ public class StatsGuiHelper {
         return guiItem;
     }
 
-    protected GuiItem getLevelButton(VPSystem main, Player player, int level) {
+    protected GuiItem getPlayerKillsButton(VPSystem main, Player player, int kills) {
 
-        Material material = Material.EXPERIENCE_BOTTLE;
-        String name = "&6&lLevel";
+        Material material = Material.DIAMOND_SWORD;
+        String name = "&6&lPlayer Kills";
         List<String> lore = new ArrayList<>(List.of(
                 "",
-                "&7&lYour &a&lLevel &7&lis &b&l" + level,
+                "&7&lYour &a&lPlayer Kill &7&lcount is &b&l" + kills,
                 "",
-                "&7&oClick me to show it off on the chat!"
+                "&7&oClick me to show it off in the chat!"
         ));
 
         ItemStack item = createItem(material, name, lore);
 
         GuiItem guiItem = ItemBuilder.from(item).asGuiItem(event -> {
-            String targetText = "%my_level%";
+            String targetText = "%my_player_kills%";
             String finalText = replaceStatPlaceholders(main, targetText, player);
 
             player.closeInventory();
@@ -78,9 +78,9 @@ public class StatsGuiHelper {
         String name = "&6&lAll Kills";
         List<String> lore = new ArrayList<>(List.of(
                 "",
-                "&7&lYour &a&lkill &7&lcount is &b&l" + kills,
+                "&7&lYour overall &a&lKill &7&lcount is &b&l" + kills,
                 "",
-                "&7&oClick me to show it off on the chat!"
+                "&7&oClick me to show it off in the chat!"
         ));
 
         ItemStack item = createItem(material, name, lore);
@@ -104,7 +104,7 @@ public class StatsGuiHelper {
                 "",
                 "&7&lYour &a&lPassive Mob Kill &7&lcount is &b&l" + kills,
                 "",
-                "&7&oClick me to show it off on the chat!"
+                "&7&oClick me to show it off in the chat!"
         ));
 
         ItemStack item = createItem(material, name, lore);
@@ -127,7 +127,7 @@ public class StatsGuiHelper {
                 "",
                 "&7&lYour &a&lAggressive Mob Kill &7&lcount is &b&l" + kills,
                 "",
-                "&7&oClick me to show it off on the chat!"
+                "&7&oClick me to show it off in the chat!"
         ));
 
         ItemStack item = createItem(material, name, lore);
@@ -149,9 +149,9 @@ public class StatsGuiHelper {
         String name = "&6&lDeaths";
         List<String> lore = new ArrayList<>(List.of(
                 "",
-                "&7&lYour &a&ldeath &7&lcount is &b&l" + deaths,
+                "&7&lYour &a&lDeath &7&lcount is &b&l" + deaths,
                 "",
-                "&7&oClick me to show it off on the chat!"
+                "&7&oClick me to show it off in the chat!"
         ));
 
         ItemStack item = createItem(material, name, lore);
@@ -173,9 +173,9 @@ public class StatsGuiHelper {
         String name = "&6&lPoints";
         List<String> lore = new ArrayList<>(List.of(
                 "",
-                "&7&lYour &a&lgathered point &7&lcount is &b&l" + points,
+                "&7&lYour &a&lAccumulated Point &7&lcount is &b&l" + points,
                 "",
-                "&7&oClick me to show it off on the chat!"
+                "&7&oClick me to show it off in the chat!"
         ));
 
         ItemStack item = createItem(material, name, lore);
@@ -191,8 +191,32 @@ public class StatsGuiHelper {
         return guiItem;
     }
 
+    protected GuiItem getLevelButton(VPSystem main, Player player, int level) {
+
+        Material material = Material.EXPERIENCE_BOTTLE;
+        String name = "&6&lLevel";
+        List<String> lore = new ArrayList<>(List.of(
+                "",
+                "&7&lYour &a&lLevel &7&lis &b&l" + level,
+                "",
+                "&7&oClick me to show it off in the chat!"
+        ));
+
+        ItemStack item = createItem(material, name, lore);
+
+        GuiItem guiItem = ItemBuilder.from(item).asGuiItem(event -> {
+            String targetText = "%my_level%";
+            String finalText = replaceStatPlaceholders(main, targetText, player);
+
+            player.closeInventory();
+            player.chat(finalText);
+        });
+
+        return guiItem;
+    }
+
     protected GuiItem getBasicFiller() {
-        ItemStack item = createItem(Material.GRAY_STAINED_GLASS_PANE, "", null);
+        ItemStack item = createItem(Material.GRAY_STAINED_GLASS_PANE, " ", null);
         GuiItem guiItem = ItemBuilder.from(item).asGuiItem();
 
         return guiItem;
