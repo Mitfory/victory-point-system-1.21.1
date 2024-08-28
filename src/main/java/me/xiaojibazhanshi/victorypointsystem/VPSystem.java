@@ -8,6 +8,7 @@ import me.xiaojibazhanshi.victorypointsystem.listeners.DeathListener;
 import me.xiaojibazhanshi.victorypointsystem.listeners.KillListener;
 import me.xiaojibazhanshi.victorypointsystem.listeners.PlayerChatListener;
 import me.xiaojibazhanshi.victorypointsystem.listeners.PlayerJoinListener;
+import me.xiaojibazhanshi.victorypointsystem.papiexpansions.LeaderboardExpansion;
 import me.xiaojibazhanshi.victorypointsystem.runnables.ActionbarRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,6 +31,10 @@ public final class VPSystem extends JavaPlugin {
 
         getCommand("victorypoints").setExecutor(new VPCommand(this));
         getCommand("victorypoints").setTabCompleter(new VPCommandTabCompleter(this));
+
+        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            new LeaderboardExpansion(this).register();
+        }
 
         ActionbarRunnable runnable = new ActionbarRunnable(this);
         runnable.start();

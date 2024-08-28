@@ -38,12 +38,13 @@ public class KillListener implements Listener {
 
     @EventHandler
     public void onPlayerKill(EntityDeathEvent event) {
+        Entity entity = event.getEntity();
 
         if (!(event.getEntity().getKiller() instanceof Player killer)) return;
+        if (killer.equals(entity)) return;
 
-        // DATA
+        // MAIN DATA
 
-        Entity entity = event.getEntity();
         EntityType entityType = entity.getType();
 
         Map<EntityType, Integer> overrides = configManager.getPointsPerKillOverrides();

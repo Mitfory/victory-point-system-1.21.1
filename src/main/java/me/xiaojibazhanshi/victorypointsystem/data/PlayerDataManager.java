@@ -70,6 +70,10 @@ public class PlayerDataManager {
         });
     }
 
+    public Map<UUID, Stats> getPlayerData() {
+        return playerData;
+    }
+
     private boolean isJsonFileReadable() {
         return dataFile.exists() && dataFile.canRead();
     }
