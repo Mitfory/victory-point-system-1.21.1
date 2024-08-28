@@ -34,7 +34,7 @@ public final class VPSystem extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        playerDataManager.savePlayerData(); // failsafe
+        playerDataManager.savePlayerDataAsync(); // failsafe
     }
 
     public ConfigManager getConfigManager() {

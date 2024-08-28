@@ -32,7 +32,7 @@ public class PlayerChatUtil {
         int level = playerStats.getLevel();
         int playerKills = playerStats.getPlayerKills();
 
-        int pointsTilPlayersLevel = configManager.getAllLvlUpPointsTilLevel(level, true);
+        int pointsTilPlayersLevel = configManager.getAllLvlUpPointsTilLevel(level, false);
         int overallPoints = currentPoints + pointsTilPlayersLevel;
 
         DecimalFormat df = new DecimalFormat("0.00");

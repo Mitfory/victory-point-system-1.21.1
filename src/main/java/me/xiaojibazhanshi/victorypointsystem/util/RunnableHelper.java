@@ -25,18 +25,16 @@ public class RunnableHelper {
         int levelUpPoints = currentLevel.pointsToLevelUp();
 
         int percentage = currentPoints == 0 ? 0 : ((int) ((double) currentPoints / levelUpPoints * 100));
-        int pointsGatheredInTotal = currentPoints;
 
-        for (Level level : configManager.getAllLevels()) {
-            pointsGatheredInTotal += level.pointsToLevelUp();
-        }
+        int pointsGatheredInTotal = currentPoints;
+        pointsGatheredInTotal += configManager.getAllLvlUpPointsTilLevel(currentLevel.id(), false);
 
         String actionBarMessage;
 
         actionBarMessage = currentLevel.id() != configManager.getAllLevels().size()
                 ? color("&6⚔ Victory Level &a&l" + currentLevel.id() + "&6 ⚔&7 | &b" + percentage + "&7% " +
-                "&7[&b&l" + progressBar + "&7] " + "&7| &c" + pointsNeeded + " &7points until level up")
-                : color("&6⚔ Victory Level " + "&a&lMAX &6⚔ &7| &a"
+                "&7[&b&l" + progressBar + "&7] " + "&7| &b" + pointsNeeded + " &7points until level up")
+                : color("&6⚔ Victory Level " + "&a&lMAX &6⚔ &7| &b"
                 + pointsGatheredInTotal + " &7points gathered in total");
 
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(actionBarMessage));

@@ -9,16 +9,16 @@ import org.bukkit.entity.EntityType;
 import java.util.*;
 
 import static me.xiaojibazhanshi.victorypointsystem.util.ConfigUtil.nullCheck;
-import static me.xiaojibazhanshi.victorypointsystem.util.GeneralUtil.color;
 
 public class ConfigManager {
 
     private FileConfiguration config;
 
-    private String statsCmdPermission;
-    private String statsGuiTitle;
-
     private boolean arePerksCumulative;
+
+    private String statsPermission;
+    private String reloadPermission;
+    private String statResetPermission;
 
     private List<Level> availableLevels;
 
@@ -42,10 +42,16 @@ public class ConfigManager {
     }
 
     private void initializeVariables() {
-        statsCmdPermission = nullCheck(config, "stats-command.permission", String.class, "vpsystem.stats");
-        statsGuiTitle = nullCheck(config, "stats-command.gui-title", String.class, color("&8Statistics"));
-
         arePerksCumulative = nullCheck(config, "are-perks-cumulative", Boolean.class, true);
+
+        statsPermission = nullCheck
+                (config, "vp-command.stats-permission", String.class, "vpsystem.stats");
+
+        reloadPermission = nullCheck
+                (config, "vp-command.reload-permission", String.class, "vpsystem.reload");
+
+        statResetPermission = nullCheck
+                (config, "vp-command.stat-reset-permission", String.class, "vpsystem.reset");
 
         availableLevels = retrieveLevels();
 
@@ -129,17 +135,21 @@ public class ConfigManager {
         return pointsPerKillOverrides;
     }
 
-    public String getStatsCmdPermission() {
-        return statsCmdPermission;
+    public String getStatsPermission() {
+        return statsPermission;
     }
 
-    public String getStatsGuiTitle() {
-        return statsGuiTitle;
-    }
 
     public List<Level> getAllLevels() {
         return availableLevels;
     }
 
 
+    public String getReloadPermission() {
+        return reloadPermission;
+    }
+
+    public String getStatResetPermission() {
+        return statResetPermission;
+    }
 }

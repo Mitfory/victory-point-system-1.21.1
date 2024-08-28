@@ -29,6 +29,8 @@ public class DeathListener implements Listener {
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent event) {
+
+        // DATA
         Player player = event.getEntity();
         UUID uuid = player.getUniqueId();
 
@@ -38,30 +40,37 @@ public class DeathListener implements Listener {
 
         int currentPoints = stats.getPoints();
         Level currentLevel = configManager.getLevelById(level);
-        int pointsOnDeath = currentLevel.pointsOnDeath();
+        int pointsOnDeath = Math.abs(currentLevel.pointsOnDeath());
 
-        List<Level> previousLevels = getPreviousLevels(configManager, currentLevel);
-        Level previousLevel = previousLevels.getLast();
-        boolean arePerksCumulative = configManager.getArePerksCumulative();
-        int previousLevelPoints = previousLevel.pointsToLevelUp();
+        List<Level> previousToCurrent = getPreviousLevels(configManager, currentLevel);
+        Level previousLevel = previousToCurrent.isEmpty() ? null : previousToCurrent.getLast();
 
-        boolean levelDown = currentPoints - pointsOnDeath < 0;
+        // LEVEL DOWN LOGIC & CHECKS
+        boolean levelDown = (currentPoints - pointsOnDeath) < 0;
 
-        stats.setPoints(levelDown
-                ? previousLevelPoints - currentPoints
-                : currentPoints - Math.abs(pointsOnDeath));
+        if (levelDown && previousLevel != null) {
+            int adjustedPoints = previousLevel.pointsToLevelUp() - Math.abs(currentPoints - pointsOnDeath);
+            stats.setPoints(adjustedPoints);
 
-        stats.decrementLevel(levelDown);
-        String previousTitle = previousLevel.title();
+            stats.decrementLevel(true);
 
-        if (levelDown) {
-            handleAttributeChange(player, previousLevel, previousLevels, arePerksCumulative);
+            List<Level> previousToPrevious = getPreviousLevels(configManager, previousLevel);
+            boolean arePerksCumulative = configManager.getArePerksCumulative();
+            handleAttributeChange(player, previousLevel, previousToPrevious, arePerksCumulative);
 
+            String previousTitle = previousLevel.title();
             player.sendMessage(color("&cYou've died and lost a level!"));
             player.sendMessage(color(previousTitle + " &7is your new title!"));
+        } else {
+            boolean lowerThanZero = currentPoints - pointsOnDeath < 0;
+
+            stats.setPoints(lowerThanZero ? 0 : currentPoints - pointsOnDeath);
         }
 
-        playerDataManager.savePlayerData();
+        // SAVING DATA
+
+        playerDataManager.savePlayerDataAsync();
     }
+
 
 }

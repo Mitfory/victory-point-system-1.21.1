@@ -1,25 +1,28 @@
 # Plugin made by XiaoJibaZhanshi
 # If you have any questions or shit breaks, DM me on discord: szym402pl
 
-# PlaceholderAPI placeholders:
-# Format is %stats_top_X_SORTMETHOD%;
-# Top 10 positions, can be sorted by: kd, points, all_kills, player_kills
-# so let's say you wanted to get top 7 kill position, you'd do %stats_top_7_all_kills%
-
 # points-per-kill-list-override list functions in format "EntityType:Amount"
 # Refer to: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
 # Default values: Player - 200, Passive mob - 10, Monster - 20, Wither/Dragon - 400, Warden: 500
 
-stats-command:
-  permission: "vpsystem.stats" # set to "none" to deactivate
-  gui-title: "&8Statistics"
+# PlaceholderAPI placeholders:
+# Format is %vp_top_X_(SORT_METHOD)% and 'Top 10' positions can be sorted by:
+# kills, deaths, passive_mob_kills, aggressive_mob_kills, kd, level, points
+# EXAMPLE (top 7 passive mob kill position): %vp_top_7_passive_mob_kills%
+
+# Don't know what placeholders are or how to use them? Refer to: https://wiki.placeholderapi.com/
+
+vp-command:
+  stats-permission: "vpsystem.stats"
+  reload-permission: "vpsystem.reload"
+  stat-reset-permission: "vpsystem.reset" # Use sparingly - don't give it even to admins!
 
 are-perks-cumulative: true
 
 points-per-kill-list-override: [] # Delete brackets if you want to override entity types
-# - "PLAYER:250"
-# - "WARDEN:600"
-# - "PIG:15"
+#  - "PLAYER:250"
+#  - "WARDEN:600"
+#  - "PIG:15"
 
 # NOTE: First level is the default, don't remove it
 levels:
@@ -35,7 +38,7 @@ levels:
     title: "&aSquire"
     points:
       to-level-up: 300
-      on-death: -25 # doesn't matter if you do -25 or 25, it's just a visual clue
+      on-death: -25 # doesn't matter if you do -25 or 25, it's just a visual clue here
     perks:
       damage: 0.5
       health: 0.5

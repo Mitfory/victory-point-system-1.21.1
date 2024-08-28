@@ -4,6 +4,7 @@ main: me.xiaojibazhanshi.victorypointsystem.VPSystem
 api-version: '1.21'
 authors: [ XiaoJibaZhanshi ]
 description: Victory Point System made by XJZ
+softdepend: [PlaceholderAPI]
 commands:
   victorypoints:
     aliases: [vp]

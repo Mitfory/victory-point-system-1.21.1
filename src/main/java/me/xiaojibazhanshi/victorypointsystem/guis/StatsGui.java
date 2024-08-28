@@ -20,7 +20,7 @@ public class StatsGui extends StatsGuiHelper {
         PlayerDataManager playerDataManager = main.getPlayerDataManager();
 
         Stats stats = playerDataManager.getStatsByUUID(player.getUniqueId());
-        String guiTitle = configManager.getStatsGuiTitle();
+        String guiTitle = color("&8Statistics");
 
         int level = stats.getLevel();
         double kd = stats.getPlayerKD();
@@ -28,7 +28,7 @@ public class StatsGui extends StatsGuiHelper {
         int passiveKills = stats.getPassiveKills();
         int aggressiveKills = stats.getAggressiveKills();
         int deaths = stats.getDeaths();
-        int levelPoints = configManager.getAllLvlUpPointsTilLevel(level, true);
+        int levelPoints = configManager.getAllLvlUpPointsTilLevel(level, false);
         int allPoints = stats.getPoints() + levelPoints;
         int playerKills = stats.getPlayerKills();
 

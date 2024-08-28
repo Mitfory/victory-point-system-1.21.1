@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.util.Vector;
 
 import java.util.List;
 import java.util.Map;
@@ -40,8 +39,7 @@ public class KillListener implements Listener {
     public void onPlayerKill(EntityDeathEvent event) {
         if (!(event.getEntity().getKiller() instanceof Player killer)) return;
 
-        /* DATA */
-
+        // DATA
         Entity entity = event.getEntity();
         EntityType entityType = entity.getType();
 
@@ -51,8 +49,7 @@ public class KillListener implements Listener {
         Stats stats = playerDataManager.getStatsByUUID(killerUUID);
         Level level = configManager.getLevelById(stats.getLevel());
 
-        /* KILLS */
-
+        // KILLS
         boolean isPassive = isPassive(entity);
         boolean isPlayerKill = entity instanceof Player;
         boolean isAggressiveNonPlayer = isAggressiveAndNonPlayer(entity);
@@ -61,8 +58,7 @@ public class KillListener implements Listener {
         stats.incrementAggressiveKills(isAggressiveNonPlayer);
         stats.incrementPassiveKills(isPassive);
 
-        /* POINTS AND NOTIFYING */
-
+        // POINTS AND LEVEL UP LOGIC & CHECK
         boolean shouldOverridePoints = overrides.containsKey(entityType);
         int addedPoints = shouldOverridePoints ? overrides.get(entityType) : getDefaultPointsForKilling(entity);
 
@@ -74,8 +70,8 @@ public class KillListener implements Listener {
 
         if (levelUp) {
             if (level.id() == configManager.getAllLevels().size()) return;
-            Level nextLevel;
 
+            Level nextLevel;
             do {
                 nextLevel = configManager.getAllLevels().get(level.id());
                 boolean arePerksCumulative = configManager.getArePerksCumulative();
@@ -87,27 +83,19 @@ public class KillListener implements Listener {
                 updatedPoints -= pointsToLevelUp;
             } while (updatedPoints >= pointsToLevelUp);
 
-            killer.sendTitle(color(nextLevel.title()),
-                    color( "&7is your new title!"),
-                    5, 25, 5);
-
+            killer.sendTitle(color(nextLevel.title()), color("&7is your new title!"), 5, 25, 5);
             killer.playSound(killer, Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
         }
 
         stats.setPoints(updatedPoints);
 
-        /* SAVING DATA */
+        // SAVING DATA
+        playerDataManager.savePlayerDataAsync();
 
-        playerDataManager.savePlayerData();
-
-        /* VISUAL EFFECT (FLOATING +XX POINTS) */
-
+        // VFX (FLOATING "+XX POINTS")
         Location topOfTheHead = entity.getLocation().add(0, entity.getHeight(), 0);
-
         ArmorStand pointHologram = generateHologram(topOfTheHead, color("&a&l+" + addedPoints));
 
         Bukkit.getScheduler().runTaskLater(main, pointHologram::remove, 30);
     }
-
-
 }
