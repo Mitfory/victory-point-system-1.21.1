@@ -9,8 +9,8 @@
 # Default values: Player - 200, Passive mob - 10, Monster - 20, Wither/Dragon - 400, Warden: 500
 
 # PlaceholderAPI placeholders:
-# Format is %vp_top_X_(SORT_METHOD)% and 'Top 10' positions can be sorted by:
-# kills, deaths, passive_mob_kills, aggressive_mob_kills, kd, level, points
+# The format is %vp_top_X_(SORT_METHOD)% and 'Top 10' positions can be sorted by:
+# level, points, kills, deaths, kd, passive_mob_kills or aggressive_mob_kills
 # EXAMPLE (top 7 passive mob kill position): %vp_top_7_passive_mob_kills%
 
 # Don't know what placeholders are or how to use them? Refer to: https://wiki.placeholderapi.com/

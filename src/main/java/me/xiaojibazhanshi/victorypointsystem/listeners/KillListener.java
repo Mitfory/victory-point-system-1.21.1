@@ -5,17 +5,18 @@ import me.xiaojibazhanshi.victorypointsystem.data.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
 import me.xiaojibazhanshi.victorypointsystem.objects.Level;
 import me.xiaojibazhanshi.victorypointsystem.objects.Stats;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.World;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.util.Vector;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -37,9 +38,11 @@ public class KillListener implements Listener {
 
     @EventHandler
     public void onPlayerKill(EntityDeathEvent event) {
+
         if (!(event.getEntity().getKiller() instanceof Player killer)) return;
 
         // DATA
+
         Entity entity = event.getEntity();
         EntityType entityType = entity.getType();
 
@@ -50,6 +53,7 @@ public class KillListener implements Listener {
         Level level = configManager.getLevelById(stats.getLevel());
 
         // KILLS
+
         boolean isPassive = isPassive(entity);
         boolean isPlayerKill = entity instanceof Player;
         boolean isAggressiveNonPlayer = isAggressiveAndNonPlayer(entity);
@@ -59,6 +63,7 @@ public class KillListener implements Listener {
         stats.incrementPassiveKills(isPassive);
 
         // POINTS AND LEVEL UP LOGIC & CHECK
+
         boolean shouldOverridePoints = overrides.containsKey(entityType);
         int addedPoints = shouldOverridePoints ? overrides.get(entityType) : getDefaultPointsForKilling(entity);
 
@@ -68,10 +73,9 @@ public class KillListener implements Listener {
 
         stats.setPoints(updatedPoints);
 
-        if (levelUp) {
-            if (level.id() == configManager.getAllLevels().size()) return;
-
+        if (levelUp && level.id() != configManager.getAllLevels().size()) {
             Level nextLevel;
+
             do {
                 nextLevel = configManager.getAllLevels().get(level.id());
                 boolean arePerksCumulative = configManager.getArePerksCumulative();
@@ -90,12 +94,27 @@ public class KillListener implements Listener {
         stats.setPoints(updatedPoints);
 
         // SAVING DATA
+
         playerDataManager.savePlayerDataAsync();
 
         // VFX (FLOATING "+XX POINTS")
-        Location topOfTheHead = entity.getLocation().add(0, entity.getHeight(), 0);
-        ArmorStand pointHologram = generateHologram(topOfTheHead, color("&a&l+" + addedPoints));
 
-        Bukkit.getScheduler().runTaskLater(main, pointHologram::remove, 30);
+        double yAdjustment = entity.getHeight() + 0.1;
+        Vector up = new Vector(0, 0.5, 0);
+
+        Location aboveTheHead = entity.getLocation().clone().add(0, yAdjustment, 0);
+        Location teleportLocation = aboveTheHead.clone().add(up);
+        String displayName = color("&a&l+" + addedPoints);
+
+        TextDisplay textDisplay = createHologram(aboveTheHead, displayName);
+        textDisplay.setVisibleByDefault(false);
+        textDisplay.setTeleportDuration(28);
+
+        killer.showEntity(main, textDisplay);
+
+        Bukkit.getScheduler().runTaskLater(main, () -> textDisplay.teleport(teleportLocation), 2);
+        Bukkit.getScheduler().runTaskLater(main, textDisplay::remove, 30);
     }
+
+
 }

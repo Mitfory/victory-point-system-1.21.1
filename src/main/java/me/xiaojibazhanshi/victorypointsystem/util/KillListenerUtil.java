@@ -26,6 +26,22 @@ public class KillListenerUtil {
         return (entity instanceof Enemy) && !(entity instanceof Player);
     }
 
+    public static TextDisplay createHologram(Location location, String name) {
+        World world = location.getWorld();
+        assert world != null;
+
+        TextDisplay textDisplay = (TextDisplay) world.spawnEntity(location, EntityType.TEXT_DISPLAY);
+
+        textDisplay.setText(name);
+        textDisplay.setBillboard(Display.Billboard.CENTER);
+
+        textDisplay.setSeeThrough(true);
+        textDisplay.setGravity(false);
+        textDisplay.setInvulnerable(true);
+
+        return textDisplay;
+    }
+
     public static int getDefaultPointsForKilling(Entity entity) {
         return (entity instanceof Warden) ? 500
                 : (entity instanceof Wither || entity instanceof EnderDragon) ? 400
@@ -64,23 +80,6 @@ public class KillListenerUtil {
                 .stream()
                 .filter(level -> level.id() < previousTo.id())
                 .toList();
-    }
-
-    public static ArmorStand generateHologram(Location location, String name) {
-        World world = location.getWorld();
-        assert world != null;
-
-        ArmorStand armorStand = (ArmorStand) world.spawnEntity(location, EntityType.ARMOR_STAND);
-
-        armorStand.setVisible(false);
-        armorStand.setCustomName(color(name));
-        armorStand.setCustomNameVisible(true);
-        armorStand.setGravity(false);
-        armorStand.setBasePlate(false);
-        armorStand.setArms(false);
-        armorStand.setMarker(true);
-
-        return armorStand;
     }
 
 }
