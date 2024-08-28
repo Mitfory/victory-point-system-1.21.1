@@ -8,6 +8,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static me.xiaojibazhanshi.victorypointsystem.util.GeneralUtil.color;
@@ -51,13 +52,18 @@ public class KillListenerUtil {
 
     @SuppressWarnings("DataFlowIssue")
     public static void handleAttributeChange(Player player, Level nextLevel, List<Level> previous, boolean cumulative) {
+        List<Level> copy = new ArrayList<>(List.copyOf(previous));
+
         AttributeInstance damageAttribute = player.getAttribute(Attribute.GENERIC_ATTACK_DAMAGE);
         AttributeInstance healthAttribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
 
         double damagePerkStack = 0.0;
         double healthPerkStack = 0.0;
 
-        for (Level level : previous) {
+        if (previous.isEmpty())
+            copy.add(nextLevel);
+
+        for (Level level : copy) {
             damagePerkStack += level.dmgPerk();
             healthPerkStack += level.hpPerk();
         }
@@ -71,8 +77,12 @@ public class KillListenerUtil {
         double damagePerk = nextLevel.dmgPerk();
         double healthPerk = nextLevel.hpPerk();
 
-        damageAttribute.setBaseValue((cumulative ? cumulatedDamage : baseDamage) + damagePerk);
-        healthAttribute.setBaseValue((cumulative ? cumulatedHealth : baseHealth) + healthPerk);
+        double newBaseDmgValue = (cumulative ? cumulatedDamage : baseDamage) + damagePerk;
+        double newBaseHpValue = (cumulative ? cumulatedHealth : baseHealth) + healthPerk;
+        System.out.println("HEALTH: " + newBaseHpValue);
+
+        damageAttribute.setBaseValue(newBaseDmgValue);
+        healthAttribute.setBaseValue(newBaseHpValue);
     }
 
     public static List<Level> getPreviousLevels(ConfigManager configManager, Level previousTo) {

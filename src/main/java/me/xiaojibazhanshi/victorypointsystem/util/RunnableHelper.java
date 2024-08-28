@@ -35,7 +35,7 @@ public class RunnableHelper {
                 ? color("&6⚔ Victory Level &a&l" + currentLevel.id() + "&6 ⚔&7 | &b" + percentage + "&7% " +
                 "&7[&b&l" + progressBar + "&7] " + "&7| &b" + pointsNeeded + " &7points until level up")
                 : color("&6⚔ Victory Level " + "&a&lMAX &6⚔ &7| &b"
-                + pointsGatheredInTotal + " &7points gathered in total");
+                + pointsGatheredInTotal + " &7points accumulated in total");
 
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(actionBarMessage));
     }

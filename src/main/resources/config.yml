@@ -15,6 +15,9 @@
 
 # Don't know what placeholders are or how to use them? Refer to: https://wiki.placeholderapi.com/
 
+# EXTRA INFO: It's best to keep health perk values as full integers, as Minecraft works weird
+# While testing, I found that most of the time it doesn't give the half-heart or gives a full one
+
 vp-command:
   stats-permission: "vpsystem.stats"
   reload-permission: "vpsystem.reload"
@@ -32,23 +35,23 @@ levels:
     title: "&aScout"
     points:
       to-level-up: 300
-      on-death: 0
+      on-death: -25
     perks:
-      damage: 0.5
-      health: 0.5
+      damage: 0.0
+      health: 0.0
   2:
     title: "&aSquire"
     points:
-      to-level-up: 300
-      on-death: -25 # doesn't matter if you do -25 or 25, it's just a visual clue here
+      to-level-up: 500
+      on-death: -50 # doesn't matter if you do -25 or 25, it's just a visual clue here
     perks:
       damage: 0.5
-      health: 0.5
+      health: 1.0
   3:
-    title: "&aKnight"
+    title: "&a&lKnight"
     points:
-      to-level-up: 300
-      on-death: -50
+      to-level-up: 900
+      on-death: -100
     perks:
-      damage: 0.5
-      health: 0.5
+      damage: 1.0
+      health: 2.0

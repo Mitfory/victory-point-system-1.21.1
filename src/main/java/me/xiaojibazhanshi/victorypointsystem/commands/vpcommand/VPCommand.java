@@ -4,6 +4,7 @@ import me.xiaojibazhanshi.victorypointsystem.VPSystem;
 import me.xiaojibazhanshi.victorypointsystem.data.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
 import me.xiaojibazhanshi.victorypointsystem.guis.stats.StatsGui;
+import me.xiaojibazhanshi.victorypointsystem.objects.Level;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Sound;
@@ -14,9 +15,13 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import static me.xiaojibazhanshi.victorypointsystem.util.GeneralUtil.color;
+import static me.xiaojibazhanshi.victorypointsystem.util.KillListenerUtil.handleAttributeChange;
 
 public class VPCommand implements CommandExecutor {
 
@@ -58,6 +63,15 @@ public class VPCommand implements CommandExecutor {
             playerDataManager.savePlayerDataAsync();
 
             console.sendMessage(color("&aSuccessfully reset &c" + playerName + "&a's stats!"));
+
+            if (offlinePlayer.isOnline()) {
+                Player player = (Player) offlinePlayer;
+                Level level = configManager.getAllLevels().getFirst();
+                boolean arePerksCumulative = configManager.getArePerksCumulative();
+                List<Level> empty = new ArrayList<>();
+
+                handleAttributeChange(player, level, empty, arePerksCumulative);
+            }
 
             return true;
         }
