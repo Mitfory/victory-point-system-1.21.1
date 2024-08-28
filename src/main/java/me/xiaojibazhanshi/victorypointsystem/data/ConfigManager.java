@@ -18,7 +18,6 @@ public class ConfigManager {
 
     private String statsPermission;
     private String reloadPermission;
-    private String statResetPermission;
 
     private List<Level> availableLevels;
 
@@ -49,9 +48,6 @@ public class ConfigManager {
 
         reloadPermission = nullCheck
                 (config, "vp-command.reload-permission", String.class, "vpsystem.reload");
-
-        statResetPermission = nullCheck
-                (config, "vp-command.stat-reset-permission", String.class, "vpsystem.reset");
 
         availableLevels = retrieveLevels();
 
@@ -123,33 +119,16 @@ public class ConfigManager {
         return points;
     }
 
-    public Level getLevelById(int id) {
-        return availableLevels.get(id - 1);
-    }
+    public Level getLevelById(int id) { return availableLevels.get(id - 1); }
 
-    public Boolean getArePerksCumulative() {
-        return arePerksCumulative;
-    }
+    public Boolean getArePerksCumulative() { return arePerksCumulative; }
 
-    public Map<EntityType, Integer> getPointsPerKillOverrides() {
-        return pointsPerKillOverrides;
-    }
+    public Map<EntityType, Integer> getPointsPerKillOverrides() { return pointsPerKillOverrides; }
 
-    public String getStatsPermission() {
-        return statsPermission;
-    }
+    public String getStatsPermission() { return statsPermission; }
 
+    public List<Level> getAllLevels() { return availableLevels; }
 
-    public List<Level> getAllLevels() {
-        return availableLevels;
-    }
+    public String getReloadPermission() { return reloadPermission; }
 
-
-    public String getReloadPermission() {
-        return reloadPermission;
-    }
-
-    public String getStatResetPermission() {
-        return statResetPermission;
-    }
 }

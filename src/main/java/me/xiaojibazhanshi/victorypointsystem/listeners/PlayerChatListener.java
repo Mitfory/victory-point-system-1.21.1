@@ -22,6 +22,7 @@ public class PlayerChatListener implements Listener {
         Player player = event.getPlayer();
 
         String replacedMessage = replaceStatPlaceholders(main, message, player);
+
         event.setMessage(replacedMessage);
     }
 

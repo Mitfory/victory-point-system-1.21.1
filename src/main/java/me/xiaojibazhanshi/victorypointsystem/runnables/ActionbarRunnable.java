@@ -9,6 +9,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static me.xiaojibazhanshi.victorypointsystem.util.RunnableHelper.showProgressBar;
 
 public class ActionbarRunnable extends BukkitRunnable {
@@ -25,9 +28,11 @@ public class ActionbarRunnable extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (Bukkit.getOnlinePlayers().isEmpty()) return;
+        List<Player> onlinePlayers = new ArrayList<>(List.copyOf(Bukkit.getOnlinePlayers()));
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
+        if (onlinePlayers.isEmpty()) return;
+
+        for (Player player : onlinePlayers) {
             Stats stats = playerDataManager.getStatsByUUID(player.getUniqueId());
             Level currentLevel = configManager.getLevelById(stats.getLevel());
 

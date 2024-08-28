@@ -1,6 +1,9 @@
 # Plugin made by XiaoJibaZhanshi
 # If you have any questions or shit breaks, DM me on discord: szym402pl
 
+# Command overview: /vp reset*/stats/reload <nickname*> (or) /victorypoints [...]
+# * - applicable only to reset subcommand; only usable via console for security reasons.
+
 # points-per-kill-list-override list functions in format "EntityType:Amount"
 # Refer to: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
 # Default values: Player - 200, Passive mob - 10, Monster - 20, Wither/Dragon - 400, Warden: 500
@@ -15,7 +18,6 @@
 vp-command:
   stats-permission: "vpsystem.stats"
   reload-permission: "vpsystem.reload"
-  stat-reset-permission: "vpsystem.reset" # Use sparingly - don't give it even to admins!
 
 are-perks-cumulative: true
 

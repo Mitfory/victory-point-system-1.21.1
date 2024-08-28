@@ -23,11 +23,11 @@ public class StatsGui extends StatsGuiHelper {
         String guiTitle = color("&8Statistics");
 
         int level = stats.getLevel();
+        int deaths = stats.getDeaths();
         double kd = stats.getPlayerKD();
         int allKills = stats.getAllKills();
         int passiveKills = stats.getPassiveKills();
         int aggressiveKills = stats.getAggressiveKills();
-        int deaths = stats.getDeaths();
         int levelPoints = configManager.getAllLvlUpPointsTilLevel(level, false);
         int allPoints = stats.getPoints() + levelPoints;
         int playerKills = stats.getPlayerKills();
@@ -54,6 +54,7 @@ public class StatsGui extends StatsGuiHelper {
         gui.setItem(2, 4, allKillsButton);
         gui.setItem(2, 6, kdButton);
         gui.setItem(2, 8, playerKillsButton);
+
         gui.setItem(4, 2, passiveKillsButton);
         gui.setItem(4, 4, aggressiveKillsButton);
         gui.setItem(4, 6, deathsButton);
