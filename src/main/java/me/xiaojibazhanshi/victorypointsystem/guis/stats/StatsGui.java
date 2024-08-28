@@ -1,6 +1,5 @@
-package me.xiaojibazhanshi.victorypointsystem.guis;
+package me.xiaojibazhanshi.victorypointsystem.guis.stats;
 
-import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.GuiItem;
 import me.xiaojibazhanshi.victorypointsystem.VPSystem;
@@ -8,7 +7,7 @@ import me.xiaojibazhanshi.victorypointsystem.data.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
 import me.xiaojibazhanshi.victorypointsystem.objects.Stats;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
 import static me.xiaojibazhanshi.victorypointsystem.util.GeneralUtil.color;
@@ -48,7 +47,10 @@ public class StatsGui extends StatsGuiHelper {
                 .title(Component.text(guiName))
                 .create();
 
-        gui.setDefaultClickAction(event -> event.setCancelled(true));
+        gui.setDefaultClickAction(event -> {
+            player.playSound(player, Sound.UI_BUTTON_CLICK, 0.75F, 0.75F);
+            event.setCancelled(true);
+        });
 
         gui.setItem(2, 2, levelButton);
         gui.setItem(2, 4, allKillsButton);
@@ -61,6 +63,11 @@ public class StatsGui extends StatsGuiHelper {
         gui.setItem(4, 8, pointsButton);
 
         gui.getFiller().fill(getBasicFiller());
+
+        gui.setCloseGuiAction(event -> {
+            player.playSound(player, Sound.BLOCK_CHEST_CLOSE, 0.75F, 0.75F);
+        });
+
         gui.open(player);
     }
 

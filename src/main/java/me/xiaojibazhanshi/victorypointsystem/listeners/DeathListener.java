@@ -31,6 +31,7 @@ public class DeathListener implements Listener {
     public void onPlayerDeath(PlayerDeathEvent event) {
 
         // DATA
+
         Player player = event.getEntity();
         UUID uuid = player.getUniqueId();
 
@@ -46,6 +47,7 @@ public class DeathListener implements Listener {
         Level previousLevel = previousToCurrent.isEmpty() ? null : previousToCurrent.getLast();
 
         // LEVEL DOWN LOGIC & CHECKS
+
         boolean levelDown = (currentPoints - pointsOnDeath) < 0;
 
         if (levelDown && previousLevel != null) {
@@ -59,8 +61,10 @@ public class DeathListener implements Listener {
             handleAttributeChange(player, previousLevel, previousToPrevious, arePerksCumulative);
 
             String previousTitle = previousLevel.title();
+
             player.sendMessage(color("&cYou've died and lost a level!"));
             player.sendMessage(color(previousTitle + " &7is your new title!"));
+
         } else {
             boolean lowerThanZero = currentPoints - pointsOnDeath < 0;
 

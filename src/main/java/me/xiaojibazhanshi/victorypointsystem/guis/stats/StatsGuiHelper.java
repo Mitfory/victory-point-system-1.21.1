@@ -1,9 +1,10 @@
-package me.xiaojibazhanshi.victorypointsystem.guis;
+package me.xiaojibazhanshi.victorypointsystem.guis.stats;
 
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.GuiItem;
 import me.xiaojibazhanshi.victorypointsystem.VPSystem;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -11,7 +12,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import static me.xiaojibazhanshi.victorypointsystem.util.GeneralUtil.color;
 import static me.xiaojibazhanshi.victorypointsystem.util.GeneralUtil.createItem;
 import static me.xiaojibazhanshi.victorypointsystem.util.PlayerChatUtil.replaceStatPlaceholders;
 
@@ -41,6 +41,8 @@ public class StatsGuiHelper {
             String targetText = "%my_kd%";
             String finalText = replaceStatPlaceholders(main, targetText, player);
 
+            player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 0.75F, 0.75F);
+
             player.closeInventory();
             player.chat(finalText);
         });
@@ -64,6 +66,8 @@ public class StatsGuiHelper {
         GuiItem guiItem = ItemBuilder.from(item).asGuiItem(event -> {
             String targetText = "%my_player_kills%";
             String finalText = replaceStatPlaceholders(main, targetText, player);
+
+            player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 0.75F, 0.75F);
 
             player.closeInventory();
             player.chat(finalText);
@@ -89,6 +93,8 @@ public class StatsGuiHelper {
             String targetText = "%my_kills%";
             String finalText = replaceStatPlaceholders(main, targetText, player);
 
+            player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 0.75F, 0.75F);
+
             player.closeInventory();
             player.chat(finalText);
         });
@@ -113,6 +119,8 @@ public class StatsGuiHelper {
             String targetText = "%my_passive_kills%";
             String finalText = replaceStatPlaceholders(main, targetText, player);
 
+            player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 0.75F, 0.75F);
+
             player.closeInventory();
             player.chat(finalText);
         });
@@ -135,6 +143,8 @@ public class StatsGuiHelper {
         GuiItem guiItem = ItemBuilder.from(item).asGuiItem(event -> {
             String targetText = "%my_aggressive_kills%";
             String finalText = replaceStatPlaceholders(main, targetText, player);
+
+            player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 0.75F, 0.75F);
 
             player.closeInventory();
             player.chat(finalText);
@@ -160,6 +170,8 @@ public class StatsGuiHelper {
             String targetText = "%my_deaths%";
             String finalText = replaceStatPlaceholders(main, targetText, player);
 
+            player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 0.75F, 0.75F);
+
             player.closeInventory();
             player.chat(finalText);
         });
@@ -184,6 +196,8 @@ public class StatsGuiHelper {
             String targetText = "%my_points%";
             String finalText = replaceStatPlaceholders(main, targetText, player);
 
+            player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 0.75F, 0.75F);
+
             player.closeInventory();
             player.chat(finalText);
         });
@@ -207,6 +221,8 @@ public class StatsGuiHelper {
         GuiItem guiItem = ItemBuilder.from(item).asGuiItem(event -> {
             String targetText = "%my_level%";
             String finalText = replaceStatPlaceholders(main, targetText, player);
+
+            player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 0.75F, 0.75F);
 
             player.closeInventory();
             player.chat(finalText);

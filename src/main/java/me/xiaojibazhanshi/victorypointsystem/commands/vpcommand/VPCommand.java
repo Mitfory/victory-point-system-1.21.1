@@ -1,12 +1,12 @@
-package me.xiaojibazhanshi.victorypointsystem.commands;
+package me.xiaojibazhanshi.victorypointsystem.commands.vpcommand;
 
 import me.xiaojibazhanshi.victorypointsystem.VPSystem;
 import me.xiaojibazhanshi.victorypointsystem.data.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
-import me.xiaojibazhanshi.victorypointsystem.guis.StatsGui;
+import me.xiaojibazhanshi.victorypointsystem.guis.stats.StatsGui;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -37,7 +37,7 @@ public class VPCommand implements CommandExecutor {
         // CONSOLE-SPECIFIC
 
         if (sender instanceof ConsoleCommandSender console) {
-            if (args.length != 2 && !args[0].equalsIgnoreCase("reset")) {
+            if (args.length != 2 || !args[0].equalsIgnoreCase("reset")) {
                 console.sendMessage(color("&cUsage: /vp reset <nickname>"));
 
                 return true;
@@ -82,8 +82,9 @@ public class VPCommand implements CommandExecutor {
         String reloadPermission = configManager.getReloadPermission();
         boolean hasReloadPerms = player.hasPermission(reloadPermission);
 
+        String usage = color("&cUsage: /vp stats" + (hasReloadPerms ? "/reload" : ""));
+
         if (args.length < 1) {
-            String usage = color("&cUsage: /vp stats" + (hasReloadPerms ? "/reload" : ""));
             player.sendMessage(usage);
 
             return true;
@@ -91,12 +92,31 @@ public class VPCommand implements CommandExecutor {
 
         String subcommand = args[0].toLowerCase();
 
-        if ()
+        switch(subcommand) {
 
+            case "reload" -> {
+                if (!(hasReloadPerms)) {
+                    player.sendMessage(color("&cNo permission!"));
 
+                    return true;
+                }
 
-        StatsGui gui = new StatsGui();
-        gui.openGui(main, player);
+                configManager.reload(main);
+                player.sendMessage(color("&aConfiguration was reloaded successfully!"));
+            }
+
+            case "stats" -> {
+                StatsGui gui = new StatsGui();
+
+                gui.openGui(main, player);
+                player.playSound(player, Sound.BLOCK_CHEST_OPEN, 0.75F, 0.75F);
+            }
+
+            default -> {
+                player.sendMessage(usage);
+            }
+
+        }
 
         return true;
     }

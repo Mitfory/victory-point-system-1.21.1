@@ -1,6 +1,7 @@
 package me.xiaojibazhanshi.victorypointsystem;
 
-import me.xiaojibazhanshi.victorypointsystem.commands.VPCommand;
+import me.xiaojibazhanshi.victorypointsystem.commands.vpcommand.VPCommand;
+import me.xiaojibazhanshi.victorypointsystem.commands.vpcommand.VPCommandTabCompleter;
 import me.xiaojibazhanshi.victorypointsystem.data.ConfigManager;
 import me.xiaojibazhanshi.victorypointsystem.data.PlayerDataManager;
 import me.xiaojibazhanshi.victorypointsystem.listeners.DeathListener;
@@ -17,6 +18,7 @@ public final class VPSystem extends JavaPlugin {
     private PlayerDataManager playerDataManager;
 
     @Override
+    @SuppressWarnings("DataFlowIssue") // just so the yellow marking on setExecutor & setTabCompleter disappears
     public void onEnable() {
         configManager = new ConfigManager(this);
         playerDataManager = new PlayerDataManager(this);
@@ -27,21 +29,16 @@ public final class VPSystem extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
 
         getCommand("victorypoints").setExecutor(new VPCommand(this));
+        getCommand("victorypoints").setTabCompleter(new VPCommandTabCompleter(this));
 
         ActionbarRunnable runnable = new ActionbarRunnable(this);
         runnable.start();
     }
 
     @Override
-    public void onDisable() {
-        playerDataManager.savePlayerDataAsync(); // failsafe
-    }
+    public void onDisable() { playerDataManager.savePlayerDataAsync(); } // failsafe
 
-    public ConfigManager getConfigManager() {
-        return configManager;
-    }
+    public ConfigManager getConfigManager() { return configManager; }
 
-    public PlayerDataManager getPlayerDataManager() {
-        return playerDataManager;
-    }
+    public PlayerDataManager getPlayerDataManager() { return playerDataManager; }
 }
