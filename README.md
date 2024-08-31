@@ -3,3 +3,5 @@ You can then just launch the server and use /vp to launch the main command.
 MC version: 1.20-1.21.1; dependencies: PlaceholderAPI
 
 Resource link: https://hangar.papermc.io/szym402pl/victory-point-system/
+
+preview: https://prnt.sc/KkLPmj4T6qE4 , https://prnt.sc/aWDAMcY390-f
