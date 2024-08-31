@@ -2,6 +2,8 @@ Hi! If you want to use the plugin, you have to drag and drop the downloaded JAR 
 You can then just launch the server and use /vp to launch the main command.
 MC version: 1.20-1.21.1; dependencies: PlaceholderAPI
 
-Resource link: https://hangar.papermc.io/szym402pl/victory-point-system/
+This is a stat system plugin. You kill stuff, you gain points, you level up and gain perks.
+For server owners: You can create cool leaderboards since this plugin has PlaceholderAPI support.
 
+Resource link: https://hangar.papermc.io/szym402pl/victory-point-system/
 preview: https://prnt.sc/KkLPmj4T6qE4 , https://prnt.sc/aWDAMcY390-f
