@@ -6,4 +6,4 @@ This is a stat system plugin. You kill stuff, you gain points, you level up and 
 For server owners: You can create cool leaderboards since this plugin has PlaceholderAPI support.
 
 Resource link: https://hangar.papermc.io/szym402pl/victory-point-system/
-preview: https://prnt.sc/KkLPmj4T6qE4 , https://prnt.sc/aWDAMcY390-f
+preview: ![](vps1.png) , ![](vps2.png)
